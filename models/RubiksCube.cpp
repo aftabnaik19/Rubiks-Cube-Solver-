@@ -1,65 +1,53 @@
 #include "RubiksCube.h"
-#include <string>
+#include "../utils/Random.h"
 
-void RubiksCube::printCube() const
-{
+void RubiksCube::printState() const {
   std::cout << "Rubiks Cube State\n\n";
 
   // printing the top face
-  for (int row = 0; row <= 2; row++)
-  {
-    for (int spaces = 0; spaces < 7; spaces++)
-    {
+  for (int row = 0; row <= 2; row++) {
+    for (int spaces = 0; spaces < 7; spaces++) {
       std::cout << ' ';
     }
-    for (int col = 0; col <= 2; col++)
-    {
+    for (int col = 0; col <= 2; col++) {
       std::cout << getColorLetter(getColor(RubiksCube::FACE::UP, row, col))
                 << ' ';
     }
     std::cout << '\n';
   }
-  for (int row = 0; row <= 2; row++)
-  {
 
-    // printing the Left, front, right and back faces
-    for (int col = 0; col <= 2; col++)
-    {
+  // printing the Left, front, right and back faces
+  for (int row = 0; row <= 2; row++) {
+    for (int col = 0; col <= 2; col++) {
       std::cout << getColorLetter(getColor(RubiksCube::FACE::LEFT, row, col))
                 << ' ';
     }
     std::cout << ' ';
-    for (int col = 0; col <= 2; col++)
-    {
+    for (int col = 0; col <= 2; col++) {
       std::cout << getColorLetter(getColor(RubiksCube::FACE::FRONT, row, col))
                 << ' ';
     }
     std::cout << ' ';
 
-    for (int col = 0; col <= 2; col++)
-    {
+    for (int col = 0; col <= 2; col++) {
       std::cout << getColorLetter(getColor(RubiksCube::FACE::RIGHT, row, col))
                 << ' ';
     }
     std::cout << ' ';
 
-    for (int col = 0; col <= 2; col++)
-    {
+    for (int col = 0; col <= 2; col++) {
       std::cout << getColorLetter(getColor(RubiksCube::FACE::BACK, row, col))
                 << ' ';
     }
     std::cout << '\n';
   }
-  for (int row = 0; row <= 2; row++)
-  {
 
-    // printing the bottom face
-    for (int spaces = 0; spaces < 7; spaces++)
-    {
+  // printing the bottom face
+  for (int row = 0; row <= 2; row++) {
+    for (int spaces = 0; spaces < 7; spaces++) {
       std::cout << ' ';
     }
-    for (int col = 0; col <= 2; col++)
-    {
+    for (int col = 0; col <= 2; col++) {
       std::cout << getColorLetter(getColor(RubiksCube::FACE::DOWN, row, col))
                 << ' ';
     }
@@ -67,10 +55,8 @@ void RubiksCube::printCube() const
   }
 }
 
-char RubiksCube::getColorLetter(COLOR color)
-{
-  switch (color)
-  {
+char RubiksCube::getColorLetter(COLOR color) {
+  switch (color) {
   case COLOR::BLUE:
     return 'B';
   case COLOR::WHITE:
@@ -84,12 +70,11 @@ char RubiksCube::getColorLetter(COLOR color)
   case COLOR::ORANGE:
     return 'O';
   }
+  __builtin_unreachable();
 }
 
-std::string RubiksCube::getMoveNotation(MOVE ind)
-{
-  switch (ind)
-  {
+std::string RubiksCube::getMoveNotation(MOVE ind) {
+  switch (ind) {
   case MOVE::L:
     return "L";
   case MOVE::LPRIME:
@@ -127,4 +112,101 @@ std::string RubiksCube::getMoveNotation(MOVE ind)
   case MOVE::B2:
     return "B2";
   }
+  __builtin_unreachable();
 }
+
+RubiksCube &RubiksCube::performMove(MOVE move) {
+  switch (move) {
+  case MOVE::F:
+    this->f();
+  case MOVE::FPRIME:
+    this->fPrime();
+  case MOVE::F2:
+    this->f2();
+  case MOVE::B:
+    this->b();
+  case MOVE::B2:
+    this->b2();
+  case MOVE::BPRIME:
+    this->bPrime();
+  case MOVE::U:
+    this->u();
+  case MOVE::U2:
+    this->u2();
+  case MOVE::UPRIME:
+    this->uPrime();
+  case MOVE::L:
+    this->l();
+  case MOVE::L2:
+    this->l2();
+  case MOVE::LPRIME:
+    this->lPrime();
+  case MOVE::R:
+    this->r();
+  case MOVE::R2:
+    this->r2();
+  case MOVE::RPRIME:
+    this->rPrime();
+  case MOVE::D:
+    this->d();
+  case MOVE::D2:
+    this->d2();
+  case MOVE::DPRIME:
+    this->dPrime();
+  }
+  __builtin_unreachable();
+}
+
+RubiksCube &RubiksCube::invertMove(MOVE move) {
+  switch (move) {
+  case MOVE::L:
+    return this->lPrime();
+  case MOVE::LPRIME:
+    return this->l();
+  case MOVE::L2:
+    return this->l2();
+  case MOVE::R:
+    return this->rPrime();
+  case MOVE::RPRIME:
+    return this->r();
+  case MOVE::R2:
+    return this->r2();
+  case MOVE::U:
+    return this->uPrime();
+  case MOVE::UPRIME:
+    return this->u();
+  case MOVE::U2:
+    return this->u2();
+  case MOVE::D:
+    return this->dPrime();
+  case MOVE::DPRIME:
+    return this->d();
+  case MOVE::D2:
+    return this->d2();
+  case MOVE::F:
+    return this->fPrime();
+  case MOVE::FPRIME:
+    return this->f();
+  case MOVE::F2:
+    return this->f2();
+  case MOVE::B:
+    return this->bPrime();
+  case MOVE::BPRIME:
+    return this->b();
+  case MOVE::B2:
+    return this->b2();
+  }
+  __builtin_unreachable();
+}
+
+std::vector<RubiksCube::MOVE> RubiksCube::randomShuffle(unsigned int shuffleMovesCount) {
+  std::vector<MOVE> randomMovesPerformed;
+  for (int turn = 0; turn < shuffleMovesCount; turn++) {
+    unsigned int randomMove = Random::get(1u, 18u);
+    randomMovesPerformed.push_back(static_cast<MOVE>(randomMove));
+    this->performMove(randomMovesPerformed.back());
+  }
+  return randomMovesPerformed;
+}
+
+

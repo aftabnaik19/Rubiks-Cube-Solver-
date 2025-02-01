@@ -1,22 +1,11 @@
 #ifndef RUBIKS_CUBE_SOLVER_GENERIC_CUBE
 #define RUBIKS_CUBE_SOLVER_GENERIC_CUBE
-
 #include <bits/stdc++.h>
 
-class RubiksCube
-{
+class RubiksCube {
 public:
-  enum class COLOR
-  {
-    WHITE,
-    YELLOW,
-    RED,
-    GREEN,
-    ORANGE,
-    BLUE
-  };
-  enum class MOVE
-  {
+  enum class COLOR { WHITE, GREEN, RED, BLUE, ORANGE, YELLOW };
+  enum class MOVE {
     L,
     L2,
     LPRIME,
@@ -36,14 +25,14 @@ public:
     D2,
     DPRIME
   };
-  enum class FACE
-  {
+  enum class FACE { // don't change the ordering, the enum Face ordering is with
+                    // respect to Enum COLOR ordering
     UP,
-    DOWN,
-    FRONT,
     LEFT,
+    FRONT,
+    RIGHT,
     BACK,
-    RIGHT
+    DOWN
   };
 
   // helper function to get colour of each cubie
@@ -62,11 +51,54 @@ public:
   //        D D D
   //        D D D
   //        D D D
-  void printCube() const;
+
+  void printState() const;
 
   virtual bool isSolved() const = 0;
 
   static std::string getMoveNotation(MOVE move);
+
+  RubiksCube &performMove(MOVE move);
+
+  RubiksCube &invertMove(MOVE move);
+
+  std::vector<MOVE> randomShuffle(unsigned int shuffleMovesCount);
+
+  virtual RubiksCube &f() = 0;
+
+  virtual RubiksCube &fPrime() = 0;
+
+  virtual RubiksCube &f2() = 0;
+
+  virtual RubiksCube &u() = 0;
+
+  virtual RubiksCube &uPrime() = 0;
+
+  virtual RubiksCube &u2() = 0;
+
+  virtual RubiksCube &l() = 0;
+
+  virtual RubiksCube &lPrime() = 0;
+
+  virtual RubiksCube &l2() = 0;
+
+  virtual RubiksCube &r() = 0;
+
+  virtual RubiksCube &d() = 0;
+
+  virtual RubiksCube &dPrime() = 0;
+
+  virtual RubiksCube &d2() = 0;
+
+  virtual RubiksCube &rPrime() = 0;
+
+  virtual RubiksCube &r2() = 0;
+
+  virtual RubiksCube &b() = 0;
+
+  virtual RubiksCube &bPrime() = 0;
+
+  virtual RubiksCube &b2() = 0;
 };
 
 #endif
