@@ -171,6 +171,7 @@ RubiksCube& RubiksCube::performMove(MOVE move) {
       case MOVE::DPRIME :
        return this->dPrime();
   }
+  __builtin_unreachable();
 }
 
 RubiksCube &RubiksCube::invertMove(MOVE move) {
