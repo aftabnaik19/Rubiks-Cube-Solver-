@@ -115,46 +115,62 @@ std::string RubiksCube::getMoveNotation(MOVE ind) {
   __builtin_unreachable();
 }
 
-RubiksCube &RubiksCube::performMove(MOVE move) {
-  switch (move) {
-  case MOVE::F:
-    this->f();
-  case MOVE::FPRIME:
-    this->fPrime();
-  case MOVE::F2:
-    this->f2();
-  case MOVE::B:
-    this->b();
-  case MOVE::B2:
-    this->b2();
-  case MOVE::BPRIME:
-    this->bPrime();
-  case MOVE::U:
-    this->u();
-  case MOVE::U2:
-    this->u2();
-  case MOVE::UPRIME:
-    this->uPrime();
-  case MOVE::L:
-    this->l();
-  case MOVE::L2:
-    this->l2();
-  case MOVE::LPRIME:
-    this->lPrime();
-  case MOVE::R:
-    this->r();
-  case MOVE::R2:
-    this->r2();
-  case MOVE::RPRIME:
-    this->rPrime();
-  case MOVE::D:
-    this->d();
-  case MOVE::D2:
-    this->d2();
-  case MOVE::DPRIME:
-    this->dPrime();
+RubiksCube& RubiksCube::performMove(MOVE move) {
+  switch(move) {
+      case MOVE::L : 
+       return this->l();
+
+      case MOVE::L2 :
+       return this->l2();
+
+      case MOVE::LPRIME :
+       return this->lPrime();
+
+      case MOVE::R :
+       return this->r();
+
+      case MOVE::R2 :
+       return this->r2();
+
+      case MOVE::RPRIME :
+       return this->rPrime();
+
+      case MOVE::U :
+       return this->u();
+
+      case MOVE::U2 :
+       return this->u2();
+
+      case MOVE::UPRIME :
+       return this->uPrime();
+
+      case MOVE::B :
+       return this->b();
+
+      case MOVE::B2 :
+       return this->b2();
+
+      case MOVE::BPRIME :
+       return this->bPrime();
+
+      case MOVE::F :
+       return this->f();
+
+      case MOVE::F2 :
+       return this->f2();
+
+      case MOVE::FPRIME :
+       return this->fPrime();
+
+      case MOVE::D : 
+       return this->d();
+
+      case MOVE::D2 :
+       return this->d2();
+
+      case MOVE::DPRIME :
+       return this->dPrime();
   }
-  __builtin_unreachable();
 }
 
 RubiksCube &RubiksCube::invertMove(MOVE move) {
