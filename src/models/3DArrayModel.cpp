@@ -7,7 +7,7 @@ private:
   const std::vector<std::vector<int>> adj = {{4, 3, 2, 1}, {0, 2, 5, 4},
                                              {0, 3, 5, 1}, {0, 4, 5, 2},
                                              {0, 1, 5, 3}, {2, 3, 4, 1}};
-  void rotateClockwise(int face) {
+  void rotateAntiClockwise(int face) {
     for (int row = 0; row < 3; row++) {
       for (int col = 0; col < 3; col++) {
         tempFace[row][col] = cube[face][row][col];
@@ -19,7 +19,7 @@ private:
       }
     }
   }
-  void rotateAntiClockwise(int face) {
+  void rotateClockwise(int face) {
     for (int row = 0; row < 3; row++) {
       for (int col = 0; col < 3; col++) {
         tempFace[row][col] = cube[face][row][col];

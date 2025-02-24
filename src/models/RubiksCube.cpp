@@ -118,41 +118,41 @@ std::string RubiksCube::getMoveNotation(MOVE ind) {
 RubiksCube &RubiksCube::performMove(MOVE move) {
   switch (move) {
   case MOVE::F:
-    this->f();
+    return this->f();
   case MOVE::FPRIME:
-    this->fPrime();
+    return this->fPrime();
   case MOVE::F2:
-    this->f2();
+    return this->f2();
   case MOVE::B:
-    this->b();
+    return this->b();
   case MOVE::B2:
-    this->b2();
+    return this->b2();
   case MOVE::BPRIME:
-    this->bPrime();
+    return this->bPrime();
   case MOVE::U:
-    this->u();
+    return this->u();
   case MOVE::U2:
-    this->u2();
+    return this->u2();
   case MOVE::UPRIME:
-    this->uPrime();
+    return this->uPrime();
   case MOVE::L:
-    this->l();
+    return this->l();
   case MOVE::L2:
-    this->l2();
+    return this->l2();
   case MOVE::LPRIME:
-    this->lPrime();
+    return this->lPrime();
   case MOVE::R:
-    this->r();
+    return this->r();
   case MOVE::R2:
-    this->r2();
+    return this->r2();
   case MOVE::RPRIME:
-    this->rPrime();
+    return this->rPrime();
   case MOVE::D:
-    this->d();
+    return this->d();
   case MOVE::D2:
-    this->d2();
+    return this->d2();
   case MOVE::DPRIME:
-    this->dPrime();
+    return this->dPrime();
   }
   __builtin_unreachable();
 }
@@ -199,14 +199,16 @@ RubiksCube &RubiksCube::invertMove(MOVE move) {
   __builtin_unreachable();
 }
 
-std::vector<RubiksCube::MOVE> RubiksCube::randomShuffle(unsigned int shuffleMovesCount) {
-  std::vector<MOVE> randomMovesPerformed;
+std::vector<RubiksCube::MOVE>
+RubiksCube::randomShuffle(unsigned int shuffleMovesCount) {
+  std::vector<RubiksCube::MOVE> randomMovesPerformed;
   for (int turn = 0; turn < shuffleMovesCount; turn++) {
     unsigned int randomMove = Random::get(1u, 18u);
     randomMovesPerformed.push_back(static_cast<MOVE>(randomMove));
     this->performMove(randomMovesPerformed.back());
   }
+  for(MOVE xm: randomMovesPerformed){
+    std::cout<<RubiksCube::getMoveNotation(xm)<<" ";
+  }std::cout<<'\n';
   return randomMovesPerformed;
 }
-
-

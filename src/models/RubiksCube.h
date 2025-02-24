@@ -4,7 +4,7 @@
 
 class RubiksCube {
 public:
-  enum class COLOR { WHITE, GREEN, RED, BLUE, ORANGE, YELLOW };
+  enum class COLOR { WHITE, ORANGE, GREEN, RED, BLUE, YELLOW };
   enum class MOVE {
     L,
     L2,

@@ -1,4 +1,6 @@
 // #include "rapidjson/document.h"
+#include "models/3DArrayModel.cpp"
+#include "models/RubiksCube.h"
 #include <pistache/endpoint.h>
 #include <pistache/http.h>
 #include <pistache/router.h>
@@ -11,6 +13,17 @@ void hello(const Rest::Request &request, Http::ResponseWriter response) {
 
 int main(int argc, char *argv[]) {
   using namespace Rest;
+  RubiksCube3dArray cube1;
+  std::vector<RubiksCube::MOVE> moves = cube1.randomShuffle(8);
+  for (int i = 0; i < moves.size(); i++) {
+    std::cout << RubiksCube::getMoveNotation(moves[i]) << " ";
+  }
+  std::cout << '\n';
+  for (RubiksCube::MOVE xm : moves) {
+    std::cout << RubiksCube::getMoveNotation(xm) << " ";
+  }
+  std::cout << '\n';
+  cube1.printState();
 
   Router router;   // POST/GET/etc. route handler
   Port port(8081); // Port to listen on
